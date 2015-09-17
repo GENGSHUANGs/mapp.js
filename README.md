@@ -3,4 +3,4 @@ mobile app
 
 
 -----------
-依赖`history.js` 和 `microevent.js`
+依赖`jquery.js` or `zepto.js` , `history.js` 和 `microevent.js`
