@@ -41,7 +41,7 @@
                                 resource.triggerback(Resource.EVENT_ATTACH, initiative,app, hash, !!preresource, function() {
                                         new MicroEvent.Mocker(preresource).triggerback(Resource.EVENT_DETACHED,initiative, app, hash, function() {
                                                 resource.triggerback(Resource.EVENT_ATTACHED, initiative,app, hash, !!preresource, triggerback);
-                                        })
+                                        });
                                 });
                         });
                 },
@@ -56,8 +56,9 @@
         Mapp.prototype._bind_events = function(dom, options) {
                 var self = this;
                 History.Adapter.bind(window, 'statechange', function() {
+                        // 判断是否主动点击
                         var initiative = self.__is_initiative_redirect;
-                        self.__is_initiative_redirect = false;
+                        self.__is_initiative_redirect = false; 
                         self._push(History.getState().hash,initiative);
                 });
                 this.on(Mapp.EVENT_SWITCH, this._on_switch.bind(this));
@@ -150,6 +151,8 @@
                 this.on(Resource.EVENT_DETACHED,this['on_' + Resource.EVENT_DETACHED].bind(this));
         };
 
+        /**
+        Resource 支持的事件 */
         Resource = $.extend(Resource, {
                 EVENT_ATTACH: 'attach',
                 EVENT_ATTACHED: 'attached',
