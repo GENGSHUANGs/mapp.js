@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Mapp.js by GENGSHUANGs</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Mapp.js</h1>
+      <h2 class="project-tagline">mobile app </h2>
+      <a href="https://github.com/GENGSHUANGs/mapp.js" class="btn">View on GitHub</a>
+      <a href="https://github.com/GENGSHUANGs/mapp.js/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/GENGSHUANGs/mapp.js/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="mappjs" class="anchor" href="#mappjs" aria-hidden="true"><span class="octicon octicon-link"></span></a>mapp.js</h1>
+
+<p>mobile app </p>
+
+<hr>
+
+<p>依赖</p>
+
+<ul>
+<li>
+<a href="http://jquery.com/">jquery.js</a> or <a href="http://zeptojs.com/">zepto.js</a>
+</li>
+<li><a href="https://github.com/browserstate/history.js/">history.js</a></li>
+<li><a href="https://github.com/GENGSHUANGs/javascript-route-matcher/">routeMatcher</a></li>
+<li>
+<a href="https://github.com/GENGSHUANGs/microevent.js" title="定制版">microevent.js</a>`</li>
+</ul>
+
+<p>USAGE:</p>
+
+<div class="highlight highlight-source-css"><pre><span class="pl-ent">html</span>,<span class="pl-ent">body</span>{
+    <span class="pl-c1"><span class="pl-c1">margin</span></span>:<span class="pl-c1">0<span class="pl-k">px</span></span>;
+    <span class="pl-c1"><span class="pl-c1">padding</span></span>:<span class="pl-c1">0<span class="pl-k">px</span></span>;
+    <span class="pl-c1"><span class="pl-c1">width</span></span>:<span class="pl-c1">100<span class="pl-k">%</span></span>;
+    <span class="pl-c1"><span class="pl-c1">height</span></span>:<span class="pl-c1">100<span class="pl-k">%</span></span>;
+    <span class="pl-c1"><span class="pl-c1">display</span></span>:<span class="pl-c1">block</span>;
+}
+
+<span class="pl-e">.welcome</span>{<span class="pl-c1"><span class="pl-c1">width</span></span>:<span class="pl-c1">100<span class="pl-k">%</span></span>;
+    <span class="pl-c1"><span class="pl-c1">height</span></span>:<span class="pl-c1">100<span class="pl-k">%</span></span>;
+    <span class="pl-c1"><span class="pl-c1">display</span></span>:<span class="pl-c1">block</span>;
+    <span class="pl-c1"><span class="pl-c1">position</span></span>:<span class="pl-c1">absolute</span>;
+    <span class="pl-c1"><span class="pl-c1">left</span></span>:<span class="pl-c1">0<span class="pl-k">px</span></span>;
+    <span class="pl-c1"><span class="pl-c1">top</span></span>:<span class="pl-c1">0<span class="pl-k">px</span></span>;
+    <span class="pl-c1"><span class="pl-c1">text-align</span></span>:<span class="pl-c1">center</span>;
+    <span class="pl-c1"><span class="pl-c1">z-index</span></span>:<span class="pl-c1">2</span>;
+}
+
+<span class="pl-ent">ul</span><span class="pl-e">.app</span>{<span class="pl-c1"><span class="pl-c1">list-style</span></span>:<span class="pl-c1">none</span>;
+    <span class="pl-c1"><span class="pl-c1">padding</span></span>:<span class="pl-c1">0<span class="pl-k">px</span></span>;
+    <span class="pl-c1"><span class="pl-c1">margin</span></span>:<span class="pl-c1">0<span class="pl-k">px</span></span>;
+    <span class="pl-c1"><span class="pl-c1">display</span></span>:<span class="pl-c1">block</span>;
+    <span class="pl-c1"><span class="pl-c1">width</span></span>:<span class="pl-c1">100<span class="pl-k">%</span></span>;
+    <span class="pl-c1"><span class="pl-c1">height</span></span>:<span class="pl-c1">100<span class="pl-k">%</span></span>;
+    <span class="pl-c1"><span class="pl-c1">position</span></span>:<span class="pl-c1">relative</span>;
+}
+
+<span class="pl-ent">ul</span><span class="pl-e">.app</span> <span class="pl-ent">li</span><span class="pl-e">.app-page-container</span>{<span class="pl-c1"><span class="pl-c1">margin</span></span>:<span class="pl-c1">0<span class="pl-k">px</span></span>;
+    <span class="pl-c1"><span class="pl-c1">padding</span></span>:<span class="pl-c1">0<span class="pl-k">px</span></span>;
+    <span class="pl-c1"><span class="pl-c1">width</span></span>:<span class="pl-c1">100<span class="pl-k">%</span></span>;
+    <span class="pl-c1"><span class="pl-c1">height</span></span>:<span class="pl-c1">100<span class="pl-k">%</span></span>;
+    <span class="pl-c1"><span class="pl-c1">display</span></span>:<span class="pl-c1">block</span>;
+    <span class="pl-c1"><span class="pl-c1">left</span></span>:<span class="pl-c1">0<span class="pl-k">px</span></span>;
+    <span class="pl-c1"><span class="pl-c1">top</span></span>:<span class="pl-c1">0<span class="pl-k">px</span></span>;
+}</pre></div>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">ul</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>app<span class="pl-pds">"</span></span>&gt;
+&lt;/<span class="pl-ent">ul</span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">"</span>text/template<span class="pl-pds">"</span></span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>page-container-template<span class="pl-pds">"</span></span>&gt;
+    &lt;<span class="pl-ent">li</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>app-page-container<span class="pl-pds">"</span></span> /&gt;
+&lt;/<span class="pl-ent">script</span>&gt;
+
+&lt;<span class="pl-ent">div</span> <span class="pl-e">class</span>=<span class="pl-s"><span class="pl-pds">"</span>welcome<span class="pl-pds">"</span></span> &gt;
+欢迎使用Xxxxx (ver 1.0)
+&lt;/<span class="pl-ent">div</span>&gt;
+
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>jquery.js or zepto.js<span class="pl-pds">"</span></span> &gt;&lt;/<span class="pl-ent">script</span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>history.js<span class="pl-pds">"</span></span> &gt;&lt;/<span class="pl-ent">script</span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>javascript-route-matcher.js<span class="pl-pds">"</span></span> &gt;&lt;/<span class="pl-ent">script</span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>microevent.js<span class="pl-pds">"</span></span> &gt;&lt;/<span class="pl-ent">script</span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>mapp.js<span class="pl-pds">"</span></span> &gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+
+<div class="highlight highlight-source-js"><pre>(<span class="pl-k">function</span>(<span class="pl-smi">window</span>,<span class="pl-smi">$</span>,<span class="pl-smi">Mapp</span>,<span class="pl-smi">undefined</span>){
+    <span class="pl-s"><span class="pl-pds">'</span>use strict<span class="pl-pds">'</span></span> ;
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">    主页资源 */</span>
+    <span class="pl-k">var</span> <span class="pl-en">HomeResource</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(){
+        Mapp.Resource.<span class="pl-c1">prototype</span>.<span class="pl-c1">constructor</span>.<span class="pl-c1">apply</span>(<span class="pl-v">this</span>,arguments);
+        <span class="pl-c">// do something else</span>
+    };
+
+    $.extend(HomeResource.<span class="pl-c1">prototype</span>,Mapp.Resource.<span class="pl-c1">prototype</span>);
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">    开始附加资源 </span>
+<span class="pl-c">    <span class="pl-k">@param</span> initiative {boolean} : 是否主动(如果使用前进或者后退激活的情况，该值为false) </span>
+<span class="pl-c">    <span class="pl-k">@param</span> app {Mapp} : </span>
+<span class="pl-c">    <span class="pl-k">@param</span> hash {string} : URL(不包含域名部分，以根 "/" 开始) </span>
+<span class="pl-c">    <span class="pl-k">@param</span> haspreresource {boolean} : 是否存在上一个资源(第一页 false ，其它true ) </span>
+<span class="pl-c">    <span class="pl-k">@param</span> triggerback {function} : 回调函数(此函数必须被调用，否则，mapp.js 将无法知道本次 on_attach 是否完成，会一致等待！) */</span>
+    <span class="pl-c1">HomeResource</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">on_attach</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">initiative</span>,<span class="pl-smi">app</span>,<span class="pl-smi">hash</span>,<span class="pl-smi">haspreresource</span>,<span class="pl-smi">triggerback</span>){
+        <span class="pl-k">var</span> self <span class="pl-k">=</span> <span class="pl-v">this</span>;
+        $.get(hash,<span class="pl-k">function</span>(<span class="pl-smi">html</span>){
+            $(self.container).append(html);
+            triggerback();
+        });
+    };
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">    资源附加完成(参数说明，参考on_attach) */</span>
+    <span class="pl-c1">HomeResource</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">on_attached</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">initiative</span>,<span class="pl-smi">app</span>,<span class="pl-smi">hash</span>,<span class="pl-smi">haspreresource</span>,<span class="pl-smi">triggerback</span>){
+        <span class="pl-v">this</span>._request_config_data(<span class="pl-v">this</span>.updateUi.bind(<span class="pl-v">this</span>));
+    };
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">    资源开始卸载 */</span>
+    <span class="pl-c1">HomeResource</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">on_detach</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">initiative</span>,<span class="pl-smi">app</span>,<span class="pl-smi">hash</span>,<span class="pl-smi">triggerback</span>){
+        <span class="pl-c">// do something</span>
+        triggerback();
+    };
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">    资源卸载完成 */</span>
+    <span class="pl-c1">HomeResource</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">on_detached</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">initiative</span>,<span class="pl-smi">app</span>,<span class="pl-smi">hash</span>,<span class="pl-smi">triggerback</span>){
+        <span class="pl-c">// do something</span>
+        triggerback();
+    };
+
+    <span class="pl-c1">HomeResource</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">_request_config_data</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">callback</span>){
+        $.getJSON(<span class="pl-s"><span class="pl-pds">'</span>/app/<span class="pl-pds">'</span></span> <span class="pl-k">+</span> <span class="pl-v">this</span>.params.<span class="pl-c1">id</span> <span class="pl-k">+</span> <span class="pl-s"><span class="pl-pds">'</span>/home/conf.json<span class="pl-pds">'</span></span>,callback);
+    };
+
+    <span class="pl-c1">HomeResource</span>.<span class="pl-c1">prototype</span>.<span class="pl-en">updateUi</span> <span class="pl-k">=</span> <span class="pl-k">function</span>(<span class="pl-smi">conf</span>){
+        <span class="pl-c">// update ui by config data</span>
+    };
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">    初始化app */</span>
+    <span class="pl-k">var</span> app <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">Mapp</span>(<span class="pl-s"><span class="pl-pds">'</span>.app<span class="pl-pds">'</span></span>,{
+        <span class="pl-c">// 配置域管理器</span>
+        scope<span class="pl-k">:</span>$.extend({
+            <span class="pl-en">build_container</span><span class="pl-k">:</span><span class="pl-k">function</span>(<span class="pl-smi">dom</span>){
+                <span class="pl-k">return</span> $($(<span class="pl-s"><span class="pl-pds">'</span>#page-container-template<span class="pl-pds">'</span></span>).html()).appendTo(dom);
+            }
+        },Mapp.default_page_scope),
+        <span class="pl-c">// 配置路由</span>
+        routers<span class="pl-k">:</span>{
+            <span class="pl-s"><span class="pl-pds">'</span><span class="pl-en">/app/:id/home.html</span><span class="pl-pds">'</span></span><span class="pl-k">:</span><span class="pl-k">function</span>(<span class="pl-smi">app</span>,<span class="pl-smi">route</span>,<span class="pl-smi">hash</span>,<span class="pl-smi">params</span>){
+                <span class="pl-k">return</span> <span class="pl-k">new</span> <span class="pl-en">HomeResource</span>(app,route,hash,params);
+            }
+        }
+    });
+
+    <span class="pl-c">/**</span>
+<span class="pl-c">    启动app(startup函数接收一个回调函数) */</span>
+    app.startup(<span class="pl-k">function</span>(){ <span class="pl-c">// startup done</span>
+        <span class="pl-c">// 代理链接</span>
+        $(<span class="pl-c1">document</span>.<span class="pl-c1">body</span>).on(<span class="pl-s"><span class="pl-pds">'</span>click<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span>a<span class="pl-pds">'</span></span>,<span class="pl-k">function</span>(){
+            app.redirect($(<span class="pl-v">this</span>).attr(<span class="pl-s"><span class="pl-pds">'</span>href<span class="pl-pds">'</span></span>));
+            <span class="pl-k">return</span> <span class="pl-c1">false</span>;
+        });
+        <span class="pl-c">// 隐藏欢迎页 </span>
+        $(<span class="pl-s"><span class="pl-pds">'</span>.welcome<span class="pl-pds">'</span></span>).hide(); 
+        <span class="pl-c">// 跳转到首页</span>
+        app.redirect(<span class="pl-s"><span class="pl-pds">'</span>/app/00001/home.html<span class="pl-pds">'</span></span>); 
+    });
+})(<span class="pl-c1">window</span>,<span class="pl-c1">window</span>.jQuery <span class="pl-k">||</span> <span class="pl-c1">window</span>.Zepto,<span class="pl-c1">window</span>.Mapp);</pre></div>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/GENGSHUANGs/mapp.js">Mapp.js</a> is maintained by <a href="https://github.com/GENGSHUANGs">GENGSHUANGs</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
