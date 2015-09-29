@@ -1,19 +1,6 @@
 ;
-(function(window, $, History, MicroEvent, undefined) {
+(function(window, $, History, MicroEvent, routeMatcher, undefined) {
         'use strict';
-
-        /**
-        异步等待 */
-        var Waiter = function(length, ready) {
-                var args = Array.prototype.slice.call(arguments);
-                var count = 0;
-                return function() {
-                        count++;
-                        if (count == length) {
-                                ready();
-                        }
-                };
-        };
 
         /**
         移动APP */
@@ -36,11 +23,11 @@
                 // 构造 container function(dom){}
                 build_container: undefined,
                 // 切换 container
-                switch_by_container: function(initiative,app, preresource, resource, hash, triggerback) {
-                        new MicroEvent.Mocker(preresource).triggerback(Resource.EVENT_DETACH,initiative, app, hash, function() {
-                                resource.triggerback(Resource.EVENT_ATTACH, initiative,app, hash, !!preresource, function() {
-                                        new MicroEvent.Mocker(preresource).triggerback(Resource.EVENT_DETACHED,initiative, app, hash, function() {
-                                                resource.triggerback(Resource.EVENT_ATTACHED, initiative,app, hash, !!preresource, triggerback);
+                switch_by_container: function(initiative, app, preresource, resource, hash, triggerback) {
+                        new MicroEvent.Mocker(preresource).triggerback(Resource.EVENT_DETACH, initiative, app, hash, function() {
+                                resource.triggerback(Resource.EVENT_ATTACH, initiative, app, hash, !!preresource, function() {
+                                        new MicroEvent.Mocker(preresource).triggerback(Resource.EVENT_DETACHED, initiative, app, hash, function() {
+                                                resource.triggerback(Resource.EVENT_ATTACHED, initiative, app, hash, !!preresource, triggerback);
                                         });
                                 });
                         });
@@ -58,24 +45,15 @@
                 History.Adapter.bind(window, 'statechange', function() {
                         // 判断是否主动点击
                         var initiative = self.__is_initiative_redirect;
-                        self.__is_initiative_redirect = false; 
-                        self._push(History.getState().hash,initiative);
+                        self.__is_initiative_redirect = false;
+                        self._push(History.getState().hash, initiative);
                 });
                 this.on(Mapp.EVENT_SWITCH, this._on_switch.bind(this));
         };
 
-        Mapp.prototype._on_switch = function(initiative,preresource, resource, hash, triggerback) {
+        Mapp.prototype._on_switch = function(initiative, preresource, resource, hash, triggerback) {
                 resource.container = this.options.scope.build_container(this.$dom);
-                this.options.scope.switch_by_container(initiative,this,preresource, resource, hash, triggerback);
-        };
-
-        Mapp.prototype._proxy_link = function(link) {
-                var $link = $(link);
-                var link = $link.attr('href');
-                if (!link || link.indexOf('javascript:') == 0) {
-                        return false;
-                }
-                return this.redirect(link,false);
+                this.options.scope.switch_by_container(initiative, this, preresource, resource, hash, triggerback);
         };
 
         Mapp.prototype.redirect = function(link, isforward) {
@@ -83,7 +61,7 @@
                         link = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1) + link;
                 }
                 var r = this.match(link);
-                if(!r){
+                if (!r) {
                         return true;
                 }
                 this.__is_initiative_redirect = true;
@@ -92,7 +70,7 @@
         };
 
         Mapp.prototype.match = function(link) {
-                var newlink = link.indexOf('?') != -1 ? link.substring(0,link.indexOf('?')) : link;
+                var newlink = link.indexOf('?') != -1 ? link.substring(0, link.indexOf('?')) : link;
                 var r = {};
                 for (var route in this.options.routers || {}) {
                         r.params = routeMatcher(route).parse(newlink);
@@ -105,7 +83,7 @@
                 return r.resource ? r : undefined;
         };
 
-        Mapp.prototype._push = function(hash,initiative, callback) {
+        Mapp.prototype._push = function(hash, initiative, callback) {
                 var r = this.match(hash);
                 if (!r || !r.resource) {
                         throw new Error('invalid-link:' + hash);
@@ -114,16 +92,12 @@
                 var preresource = this.resource;
                 this.resource = r.resource;
                 var self = this;
-                this.triggerback(Mapp.EVENT_SWITCH,initiative, preresource, r.resource, hash, function() {
-                        self.triggerback(Mapp.EVENT_SWITCHED,initiative, preresource, r.resource, hash, (callback || function() {}));
+                this.triggerback(Mapp.EVENT_SWITCH, initiative, preresource, r.resource, hash, function() {
+                        self.triggerback(Mapp.EVENT_SWITCHED, initiative, preresource, r.resource, hash, (callback || function() {}));
                 });
         };
 
         Mapp.prototype.startup = function(callback) {
-                var self = this;
-                this.$dom.on('click', 'a', function(e){
-                        return self._proxy_link(this);
-                });
                 (callback || function() {})();
         };
 
@@ -145,10 +119,13 @@
         MicroEvent.mixin(Resource);
 
         Resource.prototype._bind_events = function() {
-                this.on(Resource.EVENT_ATTACH,this['on_' + Resource.EVENT_ATTACH].bind(this));
-                this.on(Resource.EVENT_ATTACHED,this['on_' + Resource.EVENT_ATTACHED].bind(this));
-                this.on(Resource.EVENT_DETACH,this['on_' + Resource.EVENT_DETACH].bind(this));
-                this.on(Resource.EVENT_DETACHED,this['on_' + Resource.EVENT_DETACHED].bind(this));
+                var self = this;
+                [Resource.EVENT_ATTACH, Resource.EVENT_ATTACHED, Resource.EVENT_DETACH, Resource.EVENT_DETACHED].forEach(function(eventname) {
+                        if (!self['on_' + eventname]) {
+                                return;
+                        }
+                        self.on(eventname, self['on_' + eventname].bind(self));
+                });
         };
 
         /**
@@ -160,14 +137,6 @@
                 EVENT_DETACHED: 'detached'
         });
 
-        // 初始化事件接收
-        var emptyhandle = function() {
-                arguments[arguments.length - 1]();
-        };
-        [Resource.EVENT_ATTACH,Resource.EVENT_ATTACHED,Resource.EVENT_DETACH,Resource.EVENT_DETACHED].forEach(function(name){
-                Resource.prototype['on_' + name] = emptyhandle;
-        });
-
         Mapp.Resource = Resource;
         window.Mapp = Mapp;
-})(window, window.jQuery || window.Zepto, window.History, window.MicroEvent);
+})(window, window.jQuery || window.Zepto, window.History, window.MicroEvent, window.routeMatcher);
