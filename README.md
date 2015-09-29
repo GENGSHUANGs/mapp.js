@@ -13,6 +13,7 @@ mobile app
 USAGE:
 
 ```css
+/* 设置页面的宽高 */
 html,body{
 	margin:0px;
 	padding:0px;
@@ -21,6 +22,7 @@ html,body{
 	display:block;
 }
 
+/* 欢迎页面设置(浮层) */
 .welcome{width:100%;
 	height:100%;
 	display:block;
@@ -31,6 +33,7 @@ html,body{
 	z-index:2;
 }
 
+/* 页面样式 */
 ul.app{list-style:none;
 	padding:0px;
 	margin:0px;
@@ -146,8 +149,7 @@ ul.app li.app-page-container{margin:0px;
 	app.startup(function(){ // startup done
 		// 代理链接
 		$(document.body).on('click','a',function(){
-			app.redirect($(this).attr('href'));
-			return false;
+			return app.redirect($(this).attr('href'));
 		});
 		// 隐藏欢迎页 
 		$('.welcome').hide(); 
